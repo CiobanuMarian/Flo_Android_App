@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
         btnPlay = findViewById(R.id.btnPlay);
         btnPause = findViewById(R.id.btnPause);
         chronometer = findViewById(R.id.chronometer);
-        chronometer.setVisibility(View.GONE);
+//        chronometer.setVisibility(View.GONE);
         imgView = findViewById(R.id.imgColor);
-//        btnPause.setVisibility(View.GONE);
+        btnPause.setVisibility(View.GONE);
         handler = new Handler();
 
         btnPlay.setOnClickListener(new View.OnClickListener() {
