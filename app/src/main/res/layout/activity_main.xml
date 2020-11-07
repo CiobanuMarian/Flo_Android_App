@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@mipmap/bg"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="74dp"
-        android:layout_height="65dp"
+        android:layout_width="71dp"
+        android:layout_height="63dp"
         android:layout_marginStart="168dp"
         android:layout_marginLeft="168dp"
         android:layout_marginEnd="169dp"
         android:layout_marginRight="169dp"
-        android:layout_marginBottom="113dp"
+        android:layout_marginBottom="75dp"
         android:background="@mipmap/play"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,15 +23,15 @@
 
     <Chronometer
         android:id="@+id/chronometer"
-        android:layout_width="172dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="119dp"
-        android:layout_marginLeft="119dp"
-        android:layout_marginTop="96dp"
-        android:layout_marginEnd="120dp"
-        android:layout_marginRight="120dp"
+        android:layout_width="162dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginLeft="115dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginRight="116dp"
         android:format="00:00:00"
-        android:textColor="@android:color/black"
+        android:textColor="#000000"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,13 +40,13 @@
 
     <Button
         android:id="@+id/btnPause"
-        android:layout_width="74dp"
-        android:layout_height="65dp"
+        android:layout_width="69dp"
+        android:layout_height="63dp"
         android:layout_marginStart="168dp"
         android:layout_marginLeft="168dp"
         android:layout_marginEnd="169dp"
         android:layout_marginRight="169dp"
-        android:layout_marginBottom="113dp"
+        android:layout_marginBottom="75dp"
         android:background="@mipmap/pause"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,27 +54,68 @@
 
     <ImageView
         android:id="@+id/imgColor"
-        android:layout_width="305dp"
-        android:layout_height="344dp"
+        android:layout_width="298dp"
+        android:layout_height="339dp"
         android:layout_marginStart="53dp"
         android:layout_marginLeft="53dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="85dp"
         android:layout_marginEnd="53dp"
         android:layout_marginRight="53dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chronometer"
         app:srcCompat="@mipmap/honey" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="30dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
-        android:background="@mipmap/settings"
+    <TextView
+        android:id="@+id/txtSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:text="SETTINGS"
+        android:textColor="@android:color/background_dark"
+        android:textSize="18sp"
+        app:fontFamily="@font/lalezar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgLeave"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/txtLeave"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/logout" />
+
+    <TextView
+        android:id="@+id/txtLeave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="LEAVE"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:fontFamily="@font/lalezar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgSettings"
+        android:layout_width="29dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtSettings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/settings_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
