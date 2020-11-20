@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.view.View;
-import android.widget.Button;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,12 +18,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button btnPlay;
-    private Button btnPause;
+    private ImageView btnPlay;
+    private ImageView btnPause;
+    private ImageView btnReset;
     private TextView txtLeave;
     private ImageView imgLeave;
     private ImageView imgView;
@@ -39,15 +43,26 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Window window = getWindow();
+        window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION, WindowManager.LayoutParams.TYPE_STATUS_BAR);
+
+        Settings.getInstance().loadData(getApplicationContext()); // load from file the Settings
+
         btnPlay = findViewById(R.id.btnPlay);
         btnPause = findViewById(R.id.btnPause);
         chronometer = findViewById(R.id.chronometer);
 //        chronometer.setVisibility(View.GONE); //disable the timer
         imgView = findViewById(R.id.imgColor);
+        imgView.setColorFilter(Color.WHITE);
         btnPause.setVisibility(View.GONE);
+        btnReset = findViewById(R.id.btnReset);
+        btnReset.setVisibility(View.GONE);
         handler = new Handler();
 
+
         imgSettings = findViewById(R.id.imgSettings);
+        imgSettings.setColorFilter(Color.WHITE);
         imgSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         txtSettings = findViewById(R.id.txtSettings);
+        txtSettings.setTextColor(Color.WHITE);
         txtSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         imgLeave = findViewById(R.id.imgLeave);
+        imgLeave.setColorFilter(Color.WHITE);
         imgLeave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                     chronometer.start();
                     btnPlay.setVisibility(View.GONE);
                     btnPause.setVisibility(View.VISIBLE);
+                    btnReset.setVisibility(View.GONE);
 
                 } else {
                     started = false;
@@ -94,12 +112,12 @@ public class MainActivity extends AppCompatActivity {
                     handler.removeCallbacks(runnable);
                     chronometer.stop();
                     btnPause.setVisibility(View.GONE);
+                    btnReset.setVisibility(View.VISIBLE);
                     btnPlay.setVisibility(View.VISIBLE);
                 }
 
             }
         });
-
         btnPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                     handler.removeCallbacks(runnable);
                     chronometer.stop();
                     btnPause.setVisibility(View.GONE);
+                    btnReset.setVisibility(View.VISIBLE);
                     btnPlay.setVisibility(View.VISIBLE);
                     ;
                 }
@@ -116,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         txtLeave = findViewById(R.id.txtLeave);
+        txtLeave.setTextColor(Color.WHITE);
         txtLeave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +144,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!started) {
+                    started = false;
+                    handler.removeCallbacks(runnable);
+                    chronometer.stop();
+                    btnPause.setVisibility(View.GONE);
+                    btnReset.setVisibility(View.VISIBLE);
+                    btnPlay.setVisibility(View.VISIBLE);
+                    min = 0;
+                    sec = 0;
+                    milliSec = 0;
+                    tMilliSec = 0;
+                    tUpdate = 0;
+                    tStart = 0;
+                    tBuff = 0;
+                    chronometer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", milliSec));
+                    count = 1;
+                    imgView.setColorFilter(Color.WHITE);
+                }
+            }
+        });
 
     }
 
@@ -138,27 +181,18 @@ public class MainActivity extends AppCompatActivity {
             milliSec = (int) (tUpdate % 100);
             chronometer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", milliSec));
             handler.postDelayed(this, 60);
-            if (Settings.getInstance().getTimeChange() == 0) {
-                if (sec / Settings.DEFAULT_TIME >= count) {
-                    imgView.setColorFilter(generateColor());
-                    count++;
-                }
+            if (sec / Settings.getInstance().getTimeChange() >= count) {
+                imgView.setColorFilter(generateColor());
+                count++;
             }
 
         }
     };
 
 
-    //Hard-codded available colors, TBD which the user should have
     public int generateColor() {
         final int random = new Random().nextInt(50);
-        List<Integer> availableColors = new ArrayList<>();
-        availableColors.add(0xFFFF5722); // orange
-        availableColors.add(0xFF03A9F4); // blue
-        availableColors.add(0xFF673AB7); //purple
-        availableColors.add(0xFFE91E63); //pink
-        availableColors.add(0xFF4CAF50); //green
-        return availableColors.get(random % 5);
+        return Settings.getInstance().getAvailableColors().get(random % Settings.getInstance().getAvailableColors().size());
 
     }
 

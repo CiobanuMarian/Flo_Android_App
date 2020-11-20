@@ -20,18 +20,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="77dp"
+        android:id="@+id/editTextIntervalTime"
+        android:layout_width="147dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="81dp"
         android:ems="10"
+        android:hint="Interval Time"
         android:inputType="numberDecimal"
         android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch3"
-        tools:text="COLORS INTERVAL TIME" />
+        app:layout_constraintStart_toEndOf="@+id/lblInterval"
+        app:layout_constraintTop_toBottomOf="@+id/switchPurple" />
 
     <TextView
         android:id="@+id/textView2"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/switchPurple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -55,32 +55,32 @@
         android:layout_marginTop="20dp"
         android:text="Purple"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch2" />
+        app:layout_constraintTop_toBottomOf="@+id/switchGreen" />
 
     <Switch
-        android:id="@+id/switch4"
+        android:id="@+id/switchBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="40dp"
         android:text="Blue"
-        app:layout_constraintStart_toEndOf="@+id/switch1"
+        app:layout_constraintStart_toEndOf="@+id/switchOrange"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Switch
-        android:id="@+id/switch5"
+        android:id="@+id/switchPink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
         android:layout_marginTop="20dp"
         android:text="Pink"
-        app:layout_constraintStart_toEndOf="@+id/switch2"
-        app:layout_constraintTop_toBottomOf="@+id/switch4" />
+        app:layout_constraintStart_toEndOf="@+id/switchGreen"
+        app:layout_constraintTop_toBottomOf="@+id/switchBlue" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/switchGreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -88,10 +88,10 @@
         android:layout_marginTop="20dp"
         android:text=" Green "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/switchOrange" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/switchOrange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -103,6 +103,7 @@
 
     <Button
         android:id="@+id/btnSave"
+        style="@android:style/Widget.Material.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
@@ -110,6 +111,18 @@
         android:layout_marginTop="107dp"
         android:text="Save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextIntervalTime" />
+
+    <TextView
+        android:id="@+id/lblInterval"
+        android:layout_width="94dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginBottom="217dp"
+        android:text="Interval:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

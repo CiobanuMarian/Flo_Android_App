@@ -4,22 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/bg"
+    android:background="#000C24"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/btnPlay"
-        android:layout_width="71dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginLeft="168dp"
-        android:layout_marginEnd="169dp"
-        android:layout_marginRight="169dp"
-        android:layout_marginBottom="75dp"
-        android:background="@mipmap/play"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Chronometer
         android:id="@+id/chronometer"
@@ -31,26 +17,12 @@
         android:layout_marginEnd="116dp"
         android:layout_marginRight="116dp"
         android:format="00:00:00"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnPause"
-        android:layout_width="69dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginLeft="168dp"
-        android:layout_marginEnd="169dp"
-        android:layout_marginRight="169dp"
-        android:layout_marginBottom="75dp"
-        android:background="@mipmap/pause"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imgColor"
@@ -75,7 +47,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
         android:text="SETTINGS"
-        android:textColor="@android:color/background_dark"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:fontFamily="@font/lalezar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +60,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="32dp"
+        android:background="#00FFFFFF"
         app:layout_constraintStart_toEndOf="@+id/txtLeave"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/logout" />
@@ -101,7 +74,7 @@
         android:layout_marginTop="30dp"
         android:text="LEAVE"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         app:fontFamily="@font/lalezar"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,5 +90,40 @@
         app:layout_constraintEnd_toStartOf="@+id/txtSettings"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/settings_icon" />
+
+    <ImageView
+        android:id="@+id/btnReset"
+        android:layout_width="62dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="165dp"
+        android:layout_marginRight="165dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgColor"
+        app:srcCompat="@mipmap/reset" />
+
+    <ImageView
+        android:id="@+id/btnPause"
+        android:layout_width="58dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="167dp"
+        android:layout_marginLeft="167dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginRight="168dp"
+        android:layout_marginBottom="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/pause_2" />
+
+    <ImageView
+        android:id="@+id/btnPlay"
+        android:layout_width="57dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="169dp"
+        android:layout_marginRight="169dp"
+        android:layout_marginBottom="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@mipmap/play_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
