@@ -10,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Settings {
 
@@ -31,7 +33,10 @@ public class Settings {
 
     private List<String> colorsPredefinedOrder;
 
-    private List<Integer> availableColors = new ArrayList<>();
+    private Map<Integer, Integer> availableColors = new HashMap<>();
+
+    private Map<Integer, String> nextColors = new HashMap<>();
+
 
     private Settings(){}
 
@@ -49,15 +54,14 @@ public class Settings {
             File config = new File(context.getFilesDir(), "Settings.txt");
             if(config.exists()) {
 //                config.delete();
-                availableColors = new ArrayList<>();
+                availableColors = new HashMap<>();
                 FileReader fReader = new FileReader(config);
                 BufferedReader bReader = new BufferedReader(fReader);
-                this.timeChange = Integer.parseInt(bReader.readLine());
-//              this.displayNumbers = Boolean.parseBoolean(bReader.readLine()); TODO:implement
                 String availableColorsAsString = bReader.readLine();
                 String[] colors = availableColorsAsString.split(" ");
-                for (String color : colors) {
-                    availableColors.add(Integer.parseInt(color));
+                for (int i = 0; i<colors.length; i+=3) {
+                    availableColors.put(Integer.parseInt(colors[i]), Integer.parseInt(colors[i+1]));
+                    nextColors.put(Integer.parseInt(colors[i]), colors[i+2]);
                 }
             }
 
@@ -95,11 +99,19 @@ public class Settings {
         this.colorsPredefinedOrder = colorsPredefinedOrder;
     }
 
-    public List<Integer> getAvailableColors() {
+    public Map<Integer,Integer> getAvailableColors() {
         return availableColors;
     }
 
-    public void setAvailableColors(List<Integer> availableColors) {
+    public void setAvailableColors(Map<Integer,Integer> availableColors) {
         this.availableColors = availableColors;
+    }
+
+    public Map<Integer, String> getNextColors() {
+        return nextColors;
+    }
+
+    public void setNextColors(Map<Integer, String> nextColors) {
+        this.nextColors = nextColors;
     }
 }

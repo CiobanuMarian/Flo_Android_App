@@ -15,10 +15,9 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private long tMilliSec, tStart, tBuff, tUpdate = 0L;
     private int sec, min, milliSec;
     private boolean started = false;
-    private int count = 1;
+    private int changeColorTimer = 0;
+    private int currentDisplayedColor = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -162,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                     tStart = 0;
                     tBuff = 0;
                     chronometer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", milliSec));
-                    count = 1;
+                    changeColorTimer = 0;
                     imgView.setColorFilter(Color.WHITE);
                 }
             }
@@ -176,24 +175,61 @@ public class MainActivity extends AppCompatActivity {
             tMilliSec = SystemClock.uptimeMillis() - tStart;
             tUpdate = tBuff + tMilliSec;
             sec = (int) (tUpdate / 1000);
+
             min = sec / 60;
+            int allTime = sec;
             sec = sec % 60;
             milliSec = (int) (tUpdate % 100);
             chronometer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", milliSec));
             handler.postDelayed(this, 60);
-            if (sec / Settings.getInstance().getTimeChange() >= count) {
-                imgView.setColorFilter(generateColor());
-                count++;
+            // Get the color to be displayed, add the time that color has, when the normal timer reaches that, change the color again
+            if(changeColorTimer == allTime) {
+                currentDisplayedColor = generateColor(currentDisplayedColor);
+                changeColorTimer += Settings.getInstance().getAvailableColors().get(currentDisplayedColor);
+                imgView.setColorFilter(currentDisplayedColor);
             }
 
         }
     };
 
-
-    public int generateColor() {
+    /*
+        Generates a color based on the previous one,
+        if 0 or if the color has no nextColor value, generate a random one (except the color itself),
+        else return the nextColor specified in the settings
+     */
+    public int generateColor(int currentDisplayedColor) {
         final int random = new Random().nextInt(50);
-        return Settings.getInstance().getAvailableColors().get(random % Settings.getInstance().getAvailableColors().size());
 
+        Object[] values = Settings.getInstance().getAvailableColors().keySet().toArray();
+        if (currentDisplayedColor == 0) {
+            return (int) values[random % Settings.getInstance().getAvailableColors().size()];
+        } else {
+            String nextColor = Settings.getInstance().getNextColors().get(currentDisplayedColor);
+            if (nextColor != null) {
+                switch (nextColor) {
+                    case "Blue":
+                        return Settings.BLUE;
+                    case "Green":
+                        return Settings.GREEN;
+                    case "Orange":
+                        return Settings.ORANGE;
+                    case "Pink":
+                        return Settings.PINK;
+                    case "Purple":
+                        return Settings.PURPLE;
+                }
+            }
+
+            Map tempMap = new HashMap();
+            for (Map.Entry<Integer, Integer> entry : Settings.getInstance().getAvailableColors().entrySet()) {
+               if(entry.getKey() != currentDisplayedColor){
+                   tempMap.put(entry.getKey(), entry.getValue());
+               }
+            }
+            values = tempMap.keySet().toArray();
+            System.out.println(Settings.getInstance().getAvailableColors());
+            return (int) values[random % tempMap.size()];
+        }
     }
 
     @Override
