@@ -1,7 +1,6 @@
 package com.msolutions.flo_app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!started) {
+                    if (Settings.getInstance().getAvailableColors().size() == 0) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "No colors are enabled, please check the settings!", Toast.LENGTH_SHORT);
+                        toast.show();
+                        return;
+                    }
                     started = true;
                     tStart = SystemClock.uptimeMillis();
                     handler.postDelayed(runnable, 0);
@@ -104,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
                     btnPlay.setVisibility(View.GONE);
                     btnPause.setVisibility(View.VISIBLE);
                     btnReset.setVisibility(View.GONE);
-
                 } else {
                     started = false;
                     tBuff += tMilliSec;
@@ -175,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
             tMilliSec = SystemClock.uptimeMillis() - tStart;
             tUpdate = tBuff + tMilliSec;
             sec = (int) (tUpdate / 1000);
-
             min = sec / 60;
             int allTime = sec;
             sec = sec % 60;
@@ -183,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             chronometer.setText(String.format("%02d", min) + ":" + String.format("%02d", sec) + ":" + String.format("%02d", milliSec));
             handler.postDelayed(this, 60);
             // Get the color to be displayed, add the time that color has, when the normal timer reaches that, change the color again
-            if(changeColorTimer == allTime) {
+            if (changeColorTimer == allTime) {
                 currentDisplayedColor = generateColor(currentDisplayedColor);
                 changeColorTimer += Settings.getInstance().getAvailableColors().get(currentDisplayedColor);
                 imgView.setColorFilter(currentDisplayedColor);
@@ -202,29 +205,62 @@ public class MainActivity extends AppCompatActivity {
 
         Object[] values = Settings.getInstance().getAvailableColors().keySet().toArray();
         if (currentDisplayedColor == 0) {
+            if (Settings.getInstance().getAvailableColors().size() == 0) {
+                Toast toast = Toast.makeText(getApplicationContext(), "No colors are enabled, please check the settings!", Toast.LENGTH_SHORT);
+                toast.show();
+                return 0;
+            }
             return (int) values[random % Settings.getInstance().getAvailableColors().size()];
         } else {
             String nextColor = Settings.getInstance().getNextColors().get(currentDisplayedColor);
             if (nextColor != null) {
                 switch (nextColor) {
                     case "Blue":
-                        return Settings.BLUE;
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.BLUE)) {
+                            return Settings.BLUE;
+                        }
+                        break;
                     case "Green":
-                        return Settings.GREEN;
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.GREEN)) {
+                            return Settings.GREEN;
+                        }
                     case "Orange":
-                        return Settings.ORANGE;
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.ORANGE)) {
+                            return Settings.ORANGE;
+                        }
+                        break;
                     case "Pink":
-                        return Settings.PINK;
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.PINK)) {
+                            return Settings.PINK;
+                        }
+                        break;
+
                     case "Purple":
-                        return Settings.PURPLE;
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.PURPLE)) {
+                            return Settings.PURPLE;
+                        }
+                        break;
+
+                    case "Yellow":
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.YELLOW)) {
+                            return Settings.YELLOW;
+                        }
+                        break;
+
+                    case "Red":
+                        if (Settings.getInstance().getAvailableColors().containsKey(Settings.RED)) {
+                            return Settings.RED;
+                        }
+                        break;
+
                 }
             }
 
             Map tempMap = new HashMap();
             for (Map.Entry<Integer, Integer> entry : Settings.getInstance().getAvailableColors().entrySet()) {
-               if(entry.getKey() != currentDisplayedColor){
-                   tempMap.put(entry.getKey(), entry.getValue());
-               }
+                if (entry.getKey() != currentDisplayedColor) {
+                    tempMap.put(entry.getKey(), entry.getValue());
+                }
             }
             values = tempMap.keySet().toArray();
             System.out.println(Settings.getInstance().getAvailableColors());

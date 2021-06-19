@@ -95,9 +95,12 @@
         android:id="@+id/btnReset"
         android:layout_width="62dp"
         android:layout_height="56dp"
+        android:layout_marginStart="165dp"
+        android:layout_marginLeft="165dp"
         android:layout_marginEnd="165dp"
         android:layout_marginRight="165dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgColor"
         app:srcCompat="@mipmap/reset" />
 
@@ -119,11 +122,14 @@
         android:id="@+id/btnPlay"
         android:layout_width="57dp"
         android:layout_height="96dp"
+        android:layout_marginStart="167dp"
+        android:layout_marginLeft="167dp"
         android:layout_marginEnd="169dp"
         android:layout_marginRight="169dp"
         android:layout_marginBottom="55dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@mipmap/play_2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

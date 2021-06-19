@@ -9,6 +9,45 @@
     tools:context=".SettingsActivity">
 
     <Spinner
+        android:id="@+id/spinnerYellow"
+        android:layout_width="125dp"
+        android:layout_height="41dp"
+        app:layout_constraintStart_toEndOf="@+id/txtPink"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRed" />
+
+    <EditText
+        android:id="@+id/txtYellow"
+        android:layout_width="25dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="86dp"
+        android:ems="10"
+        android:hint="Color Duration"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/switchPink"
+        app:layout_constraintTop_toBottomOf="@+id/txtBlue" />
+
+    <Switch
+        android:id="@+id/switchYellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="18dp"
+        android:text="Yellow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchRed" />
+
+    <Spinner
+        android:id="@+id/spinnerRed"
+        android:layout_width="125dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="3dp"
+        app:layout_constraintStart_toEndOf="@+id/txtPink"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPink" />
+
+    <Spinner
         android:id="@+id/spinnerPink"
         android:layout_width="125dp"
         android:layout_height="41dp"
@@ -54,6 +93,17 @@
         android:layout_width="25dp"
         android:layout_height="43dp"
         android:layout_marginTop="2dp"
+        android:ems="10"
+        android:hint="Color Duration"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/switchPink"
+        app:layout_constraintTop_toBottomOf="@+id/txtBlue" />
+
+    <EditText
+        android:id="@+id/txtRed"
+        android:layout_width="25dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="Color Duration"
         android:inputType="number"
@@ -204,5 +254,16 @@
         android:layout_marginTop="2dp"
         app:layout_constraintStart_toEndOf="@+id/txtGreen"
         app:layout_constraintTop_toBottomOf="@+id/spinnerOrange" />
+
+    <Switch
+        android:id="@+id/switchRed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="18dp"
+        android:text=" Red "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchPink" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
